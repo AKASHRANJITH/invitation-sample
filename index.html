@@ -300,6 +300,72 @@ body.open .invitation-shell{opacity:1;transform:translateY(0)}
 .info-tile h4{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--ocean);text-transform:uppercase;margin-bottom:10px}
 .info-tile p{font-size:13px;color:var(--muted);line-height:1.7}
 
+/* ─── LOCATION MODAL ─── */
+.location-modal{
+  display:none !important;
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  z-index:9999;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(4px);
+  align-items:center;
+  justify-content:center;
+}
+.location-modal.active{
+  display:flex !important;
+}
+.location-modal-content{
+  background:#fff;
+  border-radius:12px;
+  padding:40px 32px;
+  max-width:360px;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,0.3);
+  animation:slideIn 0.3s ease-out;
+  position:relative;
+  z-index:10000;
+}
+@keyframes slideIn{
+  from{transform:scale(0.9);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
+.location-modal-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:26px;color:var(--ocean);margin-bottom:12px;
+}
+.location-modal-text{
+  font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6;
+}
+.location-modal-buttons{
+  display:flex;gap:12px;justify-content:center;
+}
+.location-modal-btn{
+  padding:12px 24px;border:none;border-radius:4px;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;
+  cursor:pointer;text-transform:uppercase;
+  transition:all 0.3s ease;
+}
+.location-modal-btn.yes{
+  background:var(--ocean);color:#fff;
+}
+.location-modal-btn.yes:hover{background:var(--deep);transform:translateY(-2px)}
+.location-modal-btn.no{
+  background:#e8e8e8;color:var(--ocean);
+}
+.location-modal-btn.no:hover{background:#d8d8d8;transform:translateY(-2px)}
+
+.venue-clickable{cursor:pointer;position:relative;display:inline-block}
+.venue-clickable::after{
+  content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;
+  background:var(--ocean);transition:width 0.3s ease;
+}
+.venue-clickable:hover::after{width:100%}
+
 /* ─── RSVP ─── */
 .rsvp-wrap{
   background:linear-gradient(135deg,var(--ocean) 0%,var(--deep) 100%);
@@ -464,56 +530,61 @@ body.open .invitation-shell{opacity:1;transform:translateY(0)}
     </div>
 
     <div class="events-grid">
+      <!-- LOCATION: henna - Taj Exotica (Modify map URL here) -->
       <div class="event-card reveal" style="--ac:#7dbcb8">
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Henna Celebration</div>
           <div class="e-date">Thursday, 12 February 2026</div>
-          <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
+          <div class="e-venue"><span class="venue-clickable" data-location-id="henna" data-venue="Taj Exotica Resort & Spa, Goa" data-map="https://www.google.com/maps/place/Taj+Exotica+Resort+Spa+Goa/@15.2705,73.8353,15z/">Taj Exotica Resort & Spa, Goa</span></div>
           <div class="e-time">From 5:00 PM</div>
         </div>
         <div class="e-icon">🌿</div>
       </div>
 
+      <!-- LOCATION: turmeric - Taj Exotica (Modify map URL here) -->
       <div class="event-card reveal" style="--ac:#c9a96e">
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Turmeric Ceremony</div>
           <div class="e-date">Friday, 13 February 2026</div>
-          <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
+          <div class="e-venue"><span class="venue-clickable" data-location-id="turmeric" data-venue="Taj Exotica Resort & Spa, Goa" data-map="https://www.google.com/maps/place/Taj+Exotica+Resort+Spa+Goa/@15.2705,73.8353,15z/">Taj Exotica Resort & Spa, Goa</span></div>
           <div class="e-time">From 10:00 AM</div>
         </div>
         <div class="e-icon">🌼</div>
       </div>
 
+      <!-- LOCATION: cocktail - The Leela (Modify map URL here) -->
       <div class="event-card reveal" style="--ac:#c97b5a">
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Cocktail Evening</div>
           <div class="e-date">Friday, 13 February 2026</div>
-          <div class="e-venue">The Leela, Cavelossim Beach, Goa</div>
+          <div class="e-venue"><span class="venue-clickable" data-location-id="cocktail" data-venue="The Leela, Cavelossim Beach, Goa" data-map="https://www.google.com/maps/place/The+Leela+Goa/@15.2567,73.8892,15z/">The Leela, Cavelossim Beach, Goa</span></div>
           <div class="e-time">From 7:00 PM</div>
         </div>
         <div class="e-icon">🥂</div>
       </div>
 
+      <!-- LOCATION: ceremony - Taj Exotica (Modify map URL here) -->
       <div class="event-card reveal" style="--ac:#1a6e8a">
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Wedding Ceremony</div>
           <div class="e-date">Saturday, 14 February 2026</div>
-          <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
+          <div class="e-venue"><span class="venue-clickable" data-location-id="ceremony" data-venue="Taj Exotica Resort & Spa, Goa" data-map="https://www.google.com/maps/place/Taj+Exotica+Resort+Spa+Goa/@15.2705,73.8353,15z/">Taj Exotica Resort & Spa, Goa</span></div>
           <div class="e-time">From 11:00 AM</div>
         </div>
         <div class="e-icon">💍</div>
       </div>
 
+      <!-- LOCATION: reception - Taj Exotica (Modify map URL here) -->
       <div class="event-card reveal" style="--ac:#9b7ec8">
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Reception</div>
           <div class="e-date">Saturday, 14 February 2026</div>
-          <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
+          <div class="e-venue"><span class="venue-clickable" data-location-id="reception" data-venue="Taj Exotica Resort & Spa, Goa" data-map="https://www.google.com/maps/place/Taj+Exotica+Resort+Spa+Goa/@15.2705,73.8353,15z/">Taj Exotica Resort & Spa, Goa</span></div>
           <div class="e-time">From 7:00 PM</div>
         </div>
         <div class="e-icon">🎊</div>
@@ -588,6 +659,22 @@ body.open .invitation-shell{opacity:1;transform:translateY(0)}
   <p style="font-size:13px;color:var(--muted);margin-top:6px">Share your favorite moments with us</p>
   <div class="footer-deco">🌊 🐚 🌊</div>
   <div class="footer-copy">© 2026 Arjun & Priya · With Love and Joy</div>
+</div>
+
+</div>
+
+<!-- Location Modal (Outside invitation-shell for proper visibility) -->
+<div class="location-modal" id="locationModal">
+  <div class="location-modal-content">
+    <div class="location-modal-title">View Location</div>
+    <div class="location-modal-text" id="locationModalText">
+      Would you like to view this location on Google Maps?
+    </div>
+    <div class="location-modal-buttons">
+      <button class="location-modal-btn no" id="locationModalNo">No, Thanks</button>
+      <button class="location-modal-btn yes" id="locationModalYes">Yes, Show Map</button>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -696,6 +783,76 @@ reveals.forEach(el=>io.observe(el));
 document.querySelectorAll('.events-grid .event-card').forEach((c,i)=>{
   c.style.transitionDelay=`${i*0.08}s`;
 });
+
+// ── Location Modal ──
+/**
+ * HOW TO CUSTOMIZE LOCATION MAPS:
+ * Each event card has a unique data-location-id:
+ *   - henna: Henna Celebration → Taj Exotica
+ *   - turmeric: Turmeric Ceremony → Taj Exotica
+ *   - cocktail: Cocktail Evening → The Leela
+ *   - ceremony: Wedding Ceremony → Taj Exotica
+ *   - reception: Reception → Taj Exotica
+ * 
+ * To change a map link, find the venue-clickable span with matching data-location-id
+ * and update the data-map attribute with a new Google Maps URL
+ * Example: data-map="https://www.google.com/maps/place/YOUR+LOCATION/"
+ */
+
+// Simple direct approach
+(function(){
+  const modal=document.getElementById('locationModal');
+  const modalYesBtn=document.getElementById('locationModalYes');
+  const modalNoBtn=document.getElementById('locationModalNo');
+  
+  if(!modal || !modalYesBtn || !modalNoBtn){
+    console.error('❌ Modal not found!');
+    return;
+  }
+  
+  let mapUrl='';
+  
+  // Setup venue clicks
+  document.querySelectorAll('.venue-clickable').forEach(el=>{
+    el.style.pointerEvents='auto';
+    el.style.cursor='pointer';
+    
+    const onClick=()=>{
+      mapUrl=el.getAttribute('data-map');
+      modal.style.display='flex';
+      modal.classList.add('active');
+      document.body.style.overflow='hidden';
+      console.log('✓ Modal opened for:',el.textContent.trim());
+    };
+    
+    el.addEventListener('click',onClick);
+    el.addEventListener('touchend',onClick);
+  });
+  
+  // Yes button
+  modalYesBtn.addEventListener('click',()=>{
+    if(mapUrl) window.open(mapUrl,'_blank');
+    modal.style.display='none';
+    modal.classList.remove('active');
+    document.body.style.overflow='auto';
+  });
+  
+  // No button
+  modalNoBtn.addEventListener('click',()=>{
+    modal.style.display='none';
+    modal.classList.remove('active');
+    document.body.style.overflow='auto';
+  });
+  
+  // Background click
+  modal.addEventListener('click',(e)=>{
+    if(e.target===modal){
+      modal.style.display='none';
+      modal.classList.remove('active');
+      document.body.style.overflow='auto';
+    }
+  });
+})();
 </script>
 
 </div>
