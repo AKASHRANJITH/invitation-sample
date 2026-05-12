@@ -15,15 +15,105 @@
 html{scroll-behavior:smooth}
 body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden}
 
+body.locked{overflow:hidden}
+
+/* ─── OPENING SCREEN ─── */
+.intro-screen{
+  position:fixed;inset:0;z-index:50;display:grid;place-items:center;
+  background:
+    radial-gradient(circle at top,rgba(255,255,255,0.16),transparent 35%),
+    linear-gradient(180deg,#08131f 0%,#0d2b3d 45%,#1b6e84 100%);
+  overflow:hidden;transition:opacity 0.9s ease,transform 0.9s ease;
+}
+.intro-screen::before,
+.intro-screen::after{
+  content:'';position:absolute;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,rgba(201,169,110,0.22),rgba(201,169,110,0) 70%);
+}
+.intro-screen::before{width:420px;height:420px;top:-120px;right:-120px}
+.intro-screen::after{width:520px;height:520px;bottom:-180px;left:-180px;opacity:0.65}
+.intro-card{
+  position:relative;width:min(92vw,560px);padding:28px 24px 30px;border-radius:34px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.07));
+  border:1px solid rgba(255,255,255,0.18);box-shadow:0 28px 90px rgba(0,0,0,0.35);
+  backdrop-filter:blur(12px);text-align:center;color:#fff
+}
+.intro-card,
+.intro-button{cursor:pointer}
+.intro-card::before{
+  content:'';position:absolute;inset:14px;border-radius:24px;border:1px solid rgba(201,169,110,0.28);pointer-events:none
+}
+.intro-flower{font-size:34px;letter-spacing:10px;opacity:0.8;margin-bottom:14px}
+.intro-title{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,8vw,68px);font-weight:300;line-height:1.02;margin-bottom:10px}
+.intro-sub{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.68);margin-bottom:22px}
+.intro-initials{font-family:'Cinzel',serif;font-size:12px;letter-spacing:5px;color:var(--gold);margin-bottom:18px}
+.intro-envelope{
+  position:relative;width:min(320px,74vw);height:180px;margin:0 auto 26px;
+  background:linear-gradient(135deg,#f8efe2,#e7d2b4);border-radius:22px;
+  box-shadow:0 20px 50px rgba(0,0,0,0.22);overflow:hidden
+}
+.intro-envelope::before,
+.intro-envelope::after{
+  content:'';position:absolute;left:0;right:0;height:100%;
+  background:linear-gradient(135deg,transparent 49%,rgba(255,255,255,0.65) 50%,transparent 51%);
+}
+.intro-envelope::before{clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);opacity:0.9}
+.intro-envelope::after{clip-path:polygon(0 100%,50% 44%,100% 100%);opacity:0.92}
+.intro-seal{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:72px;border-radius:50%;
+  background:radial-gradient(circle at 35% 35%,#f7e2a5,var(--gold));
+  display:grid;place-items:center;color:var(--deep);font-family:'Cinzel',serif;font-size:22px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.18);z-index:1
+}
+.intro-button{
+  appearance:none;border:0;cursor:pointer;display:inline-flex;align-items:center;gap:10px;
+  padding:16px 28px;border-radius:999px;background:#fff;color:var(--deep);
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;
+  box-shadow:0 14px 38px rgba(0,0,0,0.24);transition:transform 0.25s ease,box-shadow 0.25s ease,background 0.25s ease
+}
+.intro-button:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(0,0,0,0.28)}
+.intro-footer{margin-top:16px;font-size:12px;letter-spacing:2px;color:rgba(255,255,255,0.62)}
+.intro-screen.opening{opacity:0;transform:scale(1.02);pointer-events:none}
+
+.invitation-shell{opacity:0;transform:translateY(18px);transition:opacity 0.9s ease,transform 0.9s ease}
+body.open .invitation-shell{opacity:1;transform:translateY(0)}
+
 /* ─── CANVAS PARTICLES ─── */
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:0.35}
 
 /* ─── HERO ─── */
 .hero{
-  min-height:100vh;position:relative;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;text-align:center;
+  min-height:100vh;position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(280px,0.9fr);gap:clamp(28px,5vw,72px);
+  align-items:center;justify-items:center;text-align:center;
   overflow:hidden;padding:60px 20px 160px;
   background:linear-gradient(180deg,#050f1a 0%,#0a2436 25%,#0e3a52 50%,#1a6880 72%,#4aa8a0 88%,#7dbcb8 94%,var(--sand) 100%);
+}
+.hero-copy{position:relative;z-index:2;max-width:760px}
+.hero-visual{position:relative;z-index:2;width:min(100%,420px);align-self:center}
+.hero-card{
+  position:relative;padding:14px;border-radius:30px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.06));
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 24px 80px rgba(0,0,0,0.28);
+  backdrop-filter:blur(10px);
+}
+.hero-card::before{
+  content:'';position:absolute;inset:16px;border-radius:22px;border:1px solid rgba(201,169,110,0.3);pointer-events:none
+}
+.hero-card img{
+  display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:20px;
+  filter:saturate(1.02) contrast(1.04)
+}
+.hero-badge{
+  position:absolute;left:24px;bottom:24px;z-index:1;
+  padding:12px 16px;border-radius:999px;
+  background:rgba(13,58,78,0.78);color:#fff;
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(0,0,0,0.25)
+}
+.hero-note{
+  margin-top:14px;font-size:13px;line-height:1.7;color:rgba(255,255,255,0.78);
+  max-width:340px;text-align:left;justify-self:center
 }
 
 /* Stars */
@@ -259,12 +349,32 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
   .moon{top:24px;right:24px;width:50px;height:50px}
   .rsvp-btn{padding:16px 28px}
 }
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding-top:100px;padding-bottom:150px}
+  .hero-note{text-align:center}
+}
 </style>
 </head>
 <body>
 
+<div class="intro-screen" id="introScreen" aria-label="Open invitation screen">
+  <div class="intro-card">
+    <div class="intro-flower">✦ ✿ ✦</div>
+    <div class="intro-initials">Arjun & Priya</div>
+    <div class="intro-title">A Wedding Invitation<br>with a Touch of Elegance</div>
+    <div class="intro-sub">Tap to open the invitation</div>
+    <div class="intro-envelope" aria-hidden="true">
+      <div class="intro-seal">♡</div>
+    </div>
+    <button class="intro-button" id="openInviteBtn" type="button">Open Invitation</button>
+    <div class="intro-footer">Saturday · 14 February 2026 · Goa</div>
+  </div>
+</div>
+
 <!-- floating particles canvas -->
 <canvas id="particles"></canvas>
+
+<div class="invitation-shell" id="invitationShell">
 
 <!-- ══ HERO ══ -->
 <div class="hero">
@@ -287,15 +397,25 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
     <svg width="14" height="22" viewBox="0 0 14 22"><ellipse cx="7" cy="13" rx="6" ry="8" fill="rgba(255,180,50,0.6)"/><rect x="5" y="0" width="4" height="6" rx="2" fill="rgba(255,180,50,0.3)"/></svg>
   </div>
 
-  <div class="hero-pre">A Sacred Union</div>
-  <div class="hero-om">ॐ</div>
-  <div class="hero-names">
-    Arjun
-    <span class="hero-weds">weds</span>
-    Priya
+  <div class="hero-copy">
+    <div class="hero-pre">An Elegant Wedding Celebration</div>
+    <div class="hero-om">Wedding Invitation</div>
+    <div class="hero-names">
+      Arjun
+      <span class="hero-weds">and</span>
+      Priya
+    </div>
+    <div class="hero-divider"></div>
+    <div class="hero-date">Saturday · 14 February 2026 · Goa, India</div>
   </div>
-  <div class="hero-divider"></div>
-  <div class="hero-date">Saturday · 14th February 2026 · Goa, India</div>
+
+  <div class="hero-visual">
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=80" alt="A real wedding couple in formal attire" referrerpolicy="no-referrer">
+      <div class="hero-badge">Real wedding moment</div>
+    </div>
+    <div class="hero-note">A refined, photo-led invitation designed to feel warm, modern, and memorable for every guest.</div>
+  </div>
 
   <div class="scroll-cue">Scroll <span></span></div>
 
@@ -313,12 +433,12 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
 <div class="blessed">
   <div class="blessed-inner reveal">
     <div class="petal-row">🌸 🌺 🌸</div>
-    <div class="om-big">ॐ श्री गणेशाय नमः</div>
+    <div class="om-big">With heartfelt blessings</div>
     <div class="bless-italic">
-      With the divine blessings of our beloved elders<br>and the joy overflowing from both our families,
+      With the blessings of our beloved parents,<br>elders, and family members,
     </div>
     <div class="family-block">
-      Smt. Kamala Devi & Sri. Venkatesh Sharma<br>
+      Mrs. Kamala Devi & Mr. Venkatesh Sharma<br>
       <span style="color:var(--gold)">—</span><br>
       Mrs. Meena & Mr. Rajan Sharma<br>
       <br>
@@ -328,7 +448,7 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
     </div>
     <div class="invite-grand">INVITE</div>
     <div class="bless-italic" style="font-size:18px">
-      you to witness &amp; celebrate the wedding of their beloved children
+      you to witness and celebrate the wedding of their beloved children
     </div>
     <div class="petal-row" style="margin-top:20px">🌺 🌸 🌺</div>
   </div>
@@ -339,7 +459,7 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
   <div class="events-inner">
     <div class="reveal">
       <div class="sec-label">The Celebrations</div>
-      <div class="sec-title">Join us for<br><em>every moment</em></div>
+      <div class="sec-title">Join us for<br><em>every special moment</em></div>
       <div class="gold-bar"></div>
     </div>
 
@@ -347,10 +467,10 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
       <div class="event-card reveal" style="--ac:#7dbcb8">
         <div class="e-accent"></div>
         <div class="e-body">
-          <div class="e-name">Mehendi</div>
-          <div class="e-date">Thursday, 12th February 2026</div>
+          <div class="e-name">Henna Celebration</div>
+          <div class="e-date">Thursday, 12 February 2026</div>
           <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
-          <div class="e-time">5:00 PM Onwards</div>
+          <div class="e-time">From 5:00 PM</div>
         </div>
         <div class="e-icon">🌿</div>
       </div>
@@ -358,10 +478,10 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
       <div class="event-card reveal" style="--ac:#c9a96e">
         <div class="e-accent"></div>
         <div class="e-body">
-          <div class="e-name">Haldi</div>
-          <div class="e-date">Friday, 13th February 2026</div>
+          <div class="e-name">Turmeric Ceremony</div>
+          <div class="e-date">Friday, 13 February 2026</div>
           <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
-          <div class="e-time">10:00 AM Onwards</div>
+          <div class="e-time">From 10:00 AM</div>
         </div>
         <div class="e-icon">🌼</div>
       </div>
@@ -370,9 +490,9 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Cocktail Evening</div>
-          <div class="e-date">Friday, 13th February 2026</div>
+          <div class="e-date">Friday, 13 February 2026</div>
           <div class="e-venue">The Leela, Cavelossim Beach, Goa</div>
-          <div class="e-time">7:00 PM Onwards</div>
+          <div class="e-time">From 7:00 PM</div>
         </div>
         <div class="e-icon">🥂</div>
       </div>
@@ -380,10 +500,10 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
       <div class="event-card reveal" style="--ac:#1a6e8a">
         <div class="e-accent"></div>
         <div class="e-body">
-          <div class="e-name">Shaadi</div>
-          <div class="e-date">Saturday, 14th February 2026</div>
+          <div class="e-name">Wedding Ceremony</div>
+          <div class="e-date">Saturday, 14 February 2026</div>
           <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
-          <div class="e-time">11:00 AM Onwards</div>
+          <div class="e-time">From 11:00 AM</div>
         </div>
         <div class="e-icon">💍</div>
       </div>
@@ -392,9 +512,9 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
         <div class="e-accent"></div>
         <div class="e-body">
           <div class="e-name">Reception</div>
-          <div class="e-date">Saturday, 14th February 2026</div>
+          <div class="e-date">Saturday, 14 February 2026</div>
           <div class="e-venue">Taj Exotica Resort & Spa, Goa</div>
-          <div class="e-time">7:00 PM Onwards</div>
+          <div class="e-time">From 7:00 PM</div>
         </div>
         <div class="e-icon">🎊</div>
       </div>
@@ -410,9 +530,9 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
     <div class="sec-title">A note from<br><em>our hearts</em></div>
     <div class="gold-bar" style="margin:18px auto 24px"></div>
     <div class="couple-msg">
-      "We are overjoyed to have you share in the celebration of our love. Your presence is not just an honour — it is the very magic that will make our day complete. Come, dance with us, laugh with us, and let the sea breeze carry your blessings as we begin this beautiful journey together."
+      "We are delighted to invite you to celebrate our wedding day with us. Your presence will make this moment even more meaningful. Come share the joy, the laughter, and the memories as we begin our life together."
     </div>
-    <div class="couple-sig">— Arjun & Priya 🌊</div>
+    <div class="couple-sig">— Arjun & Priya</div>
   </div>
 </div>
 
@@ -435,14 +555,14 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
   <div class="info-inner">
     <div class="reveal">
       <div class="sec-label">Good To Know</div>
-      <div class="sec-title">Things to <em>keep in mind</em></div>
+      <div class="sec-title">A few details to <em>keep in mind</em></div>
       <div class="gold-bar"></div>
     </div>
     <div class="info-grid">
-      <div class="info-tile reveal"><span class="icon">🌤️</span><h4>Weather</h4><p>Warm tropical breeze ~28°C. Light breathable fabrics are perfect.</p></div>
+      <div class="info-tile reveal"><span class="icon">🌤️</span><h4>Weather</h4><p>Expect warm tropical weather around 28°C. Light, breathable outfits will feel best.</p></div>
       <div class="info-tile reveal"><span class="icon">🚗</span><h4>Parking</h4><p>Complimentary valet parking for all guests at the venue.</p></div>
-      <div class="info-tile reveal"><span class="icon">📸</span><h4>Hashtag</h4><p>Post your memories with <strong>#ArjunWedsPriya</strong></p></div>
-      <div class="info-tile reveal"><span class="icon">🏨</span><h4>Stay</h4><p>Special rates at Taj Exotica. Mention the wedding when booking.</p></div>
+      <div class="info-tile reveal"><span class="icon">📸</span><h4>Hashtag</h4><p>Share your memories with <strong>#ArjunWedsPriya</strong></p></div>
+      <div class="info-tile reveal"><span class="icon">🏨</span><h4>Stay</h4><p>Special rates are available at Taj Exotica. Mention the wedding when booking.</p></div>
     </div>
   </div>
 </div>
@@ -456,8 +576,8 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
     </svg>
   </div>
   <div class="rsvp-inner reveal">
-    <div class="rsvp-title">We look<br>forward to<br>seeing you</div>
-    <div class="rsvp-sub">Kindly let us know you're coming</div>
+    <div class="rsvp-title">We look<br>forward to<br>celebrating with you</div>
+    <div class="rsvp-sub">Please let us know if you will be joining us</div>
     <a href="https://wa.me/91XXXXXXXXXX" class="rsvp-btn"><span>RSVP via WhatsApp</span></a>
   </div>
 </div>
@@ -465,12 +585,33 @@ body{background:var(--sand);color:var(--text);font-family:'Jost',sans-serif;font
 <!-- ══ FOOTER ══ -->
 <div class="footer reveal">
   <div class="hashtag">#Arjun<em>Weds</em>Priya</div>
-  <p style="font-size:13px;color:var(--muted);margin-top:6px">Share your favourite moments with us</p>
+  <p style="font-size:13px;color:var(--muted);margin-top:6px">Share your favorite moments with us</p>
   <div class="footer-deco">🌊 🐚 🌊</div>
-  <div class="footer-copy">© 2026 Arjun & Priya · With Love & Joy</div>
+  <div class="footer-copy">© 2026 Arjun & Priya · With Love and Joy</div>
 </div>
 
 <script>
+// ── Opening screen ──
+(function(){
+  const introScreen=document.getElementById('introScreen');
+  const openInviteBtn=document.getElementById('openInviteBtn');
+  const invitationShell=document.getElementById('invitationShell');
+
+  function openInvitation(){
+    document.body.classList.add('open');
+    document.body.classList.remove('locked');
+    introScreen.classList.add('opening');
+    window.setTimeout(()=>{introScreen.remove()},950);
+    invitationShell.focus?.();
+  }
+
+  document.body.classList.add('locked');
+  openInviteBtn.addEventListener('click',openInvitation);
+  introScreen.addEventListener('click',e=>{
+    if(e.target===introScreen) openInvitation();
+  });
+})();
+
 // ── Stars ──
 (function(){
   const hero = document.querySelector('.hero');
@@ -556,5 +697,7 @@ document.querySelectorAll('.events-grid .event-card').forEach((c,i)=>{
   c.style.transitionDelay=`${i*0.08}s`;
 });
 </script>
+
+</div>
 </body>
 </html>
